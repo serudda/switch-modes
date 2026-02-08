@@ -59,10 +59,10 @@ If the configuration file doesn't exist or user requests setup:
 
 ```json
 {
-  "eco": "model-id",
-  "balanced": "model-id",
-  "smart": "model-id",
-  "max": "model-id"
+	"eco": "model-id",
+	"balanced": "model-id",
+	"smart": "model-id",
+	"max": "model-id"
 }
 ```
 
@@ -104,7 +104,7 @@ If file doesn't exist, prompt user to run `/modes setup` first.
 3. Call `gateway config.patch` with:
 
 ```json
-{"agents":{"defaults":{"model":{"primary":"target-model-id"}}}}
+{ "agents": { "defaults": { "model": { "primary": "target-model-id" } } } }
 ```
 
 This changes the primary model in `openclaw.json` and triggers a gateway restart (~2 seconds).
@@ -179,21 +179,35 @@ Agent: 🎉 Setup complete! Use: eco mode, balanced mode, smart mode, max mode
 
 ## Common Edge Cases
 
-- **Config file missing:** Prompt user to run `/modes setup`
-- **Invalid model ID:** Show error and suggest running `/modes setup` again
-- **Gateway restart fails:** Suggest running `openclaw gateway restart` manually
-- **Same mode requested:** Confirm current mode without restarting gateway
-- **Unknown mode name:** Show available modes (eco, balanced, smart, max)
+1. **Config file missing:** Prompt user to run `/modes setup`
+2. **Invalid model ID:** Show error and ask user to reconfigure that mode
+3. **Model not available:** Suggest checking API keys and model access in OpenClaw
+4. **Ambiguous input:** If just "eco" or "smart" without "mode", still treat as mode switch command
+5. **Case insensitive:** Accept "ECO MODE", "Eco Mode", "eco mode" all the same
+
+## Important Notes
+
+- Mode switching triggers a gateway restart (~2 seconds)
+- Changes the primary model in `openclaw.json` — affects all sessions
+- Preserve all other settings in `openclaw.json` when updating model
+- Always validate JSON before writing config files
+- Use absolute paths: `~/.openclaw/...` not relative paths
+
+## Reference
+
+For detailed troubleshooting, supported models list, and FAQ, see [references/REFERENCE.md](references/REFERENCE.md).
 
 ## Supported Models
 
 ### Anthropic
+
 - `anthropic/claude-3.5-haiku` (fastest, cheapest)
 - `anthropic/claude-sonnet-4-5` (balanced)
 - `anthropic/claude-opus-4-5` (powerful)
 - `anthropic/claude-opus-4-6` (most powerful)
 
 ### OpenAI
+
 - `openai/gpt-4o-mini` (cheap)
 - `openai/gpt-4o` (balanced)
 - `openai/o1` (reasoning)
