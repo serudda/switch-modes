@@ -52,7 +52,7 @@ Recommended: `anthropic/claude-opus-4-5`
 **🔴 MAX** - Maximum power  
 Recommended: `anthropic/claude-opus-4-6` or `openai/o1-pro`
 
-Your configuration is saved to `workspace/model-modes.json`
+Your configuration is saved to `workspace/switch-modes.json`
 
 ---
 
@@ -100,7 +100,7 @@ max mode
 
 ## Configuration File
 
-Located at: `~/.openclaw/workspace/model-modes.json`
+Located at: `~/.openclaw/workspace/switch-modes.json`
 
 Example:
 ```json
@@ -194,7 +194,7 @@ Use any model ID supported by your OpenClaw installation.
 
 **Mode not switching:**
 - Run `/modes status` to verify current mode
-- Check `workspace/model-modes.json` exists and is valid JSON
+- Check `workspace/switch-modes.json` exists and is valid JSON
 - Try running `/modes setup` again
 
 **Cost not decreasing:**
@@ -243,7 +243,7 @@ I have the Switch Modes skill installed. I can switch between cost-optimized mod
 
 **How it works:**
 1. I detect mode commands in messages
-2. I read `model-modes.json` from workspace
+2. I read `switch-modes.json` from workspace
 3. I call `session_status` with the model parameter
 4. I confirm the switch
 
