@@ -1,268 +1,151 @@
-# Switch Modes - OpenClaw Skill
-
-**Dynamically switch between AI models to optimize costs and performance.**
-
+---
+name: switch-modes
+description: Switch between AI models dynamically to optimize costs and performance. Use when the user says mode commands like "eco mode", "balanced mode", "smart mode", or "max mode", or when they want to check their current mode with "/modes status" or configure modes with "/modes setup".
+license: MIT
+metadata:
+  author: serudda
+  version: "1.0.0"
 ---
 
-## What This Does
+# Switch Modes
 
-Tired of paying premium model prices for simple questions? This skill lets you define custom "modes" (eco, balanced, smart, max) and switch between them on the fly with simple commands.
+Dynamically switch between AI models to optimize costs and performance.
 
-**Example:**
-- "eco mode" → Switch to cheapest model for quick tasks
-- "smart mode" → Switch to powerful model for complex work
-- Save 60-80% on API costs by using the right model for each task
+## When to Use This Skill
 
----
+Activate this skill when the user mentions:
+- Mode switching commands: `eco mode`, `balanced mode`, `smart mode`, `max mode`
+- Status check: `/modes status`
+- Configuration: `/modes setup`
 
-## Installation
+## How It Works
 
-### Via ClawdHub (Recommended)
-```bash
-clawdhub install switch-modes
-```
+The skill manages 4 predefined modes, each mapped to a specific model:
 
-### Manual
-1. Clone or download this skill
-2. Place in your OpenClaw skills directory
-3. Run setup (see below)
+- **eco** → Cheapest model (for summaries, quick questions)
+- **balanced** → Daily driver model (for general work)
+- **smart** → Powerful model (for complex reasoning)
+- **max** → Most powerful model (for critical tasks)
 
----
+Configuration is stored in `~/.openclaw/workspace/switch-modes.json`.
 
-## Setup
+## Step-by-Step Instructions
 
-### First Time Configuration
+### 1. Detect Mode Commands
 
-Run the setup command:
-```
-/modes setup
-```
+When the user message contains any of these patterns:
+- `eco mode` or `eco` (standalone)
+- `balanced mode` or `balanced`
+- `smart mode` or `smart`
+- `max mode` or `max`
+- `/modes status`
+- `/modes setup`
 
-You'll be asked to choose a model for each mode:
+### 2. Handle Setup Command (`/modes setup`)
 
-**🟢 ECO** - Cheapest, for simple tasks  
-Recommended: `anthropic/claude-3.5-haiku`
+If the configuration file doesn't exist or user requests setup:
 
-**🔵 BALANCED** - Daily driver  
-Recommended: `anthropic/claude-sonnet-4-5`
+1. Use `AskUserQuestion` to gather model preferences for each mode:
+   - **ECO mode**: Recommend `anthropic/claude-3.5-haiku`
+   - **BALANCED mode**: Recommend `anthropic/claude-sonnet-4-5`
+   - **SMART mode**: Recommend `anthropic/claude-opus-4-5`
+   - **MAX mode**: Recommend `anthropic/claude-opus-4-6` or `openai/o1-pro`
 
-**🟠 SMART** - Complex reasoning  
-Recommended: `anthropic/claude-opus-4-5`
-
-**🔴 MAX** - Maximum power  
-Recommended: `anthropic/claude-opus-4-6` or `openai/o1-pro`
-
-Your configuration is saved to `workspace/switch-modes.json`
-
----
-
-## Usage
-
-### Switch Modes
-
-Simply include the mode name in your message:
-
-```
-eco mode
-```
-→ Switches to your ECO model
-
-```
-balanced mode
-```
-→ Switches to your BALANCED model
-
-```
-smart mode
-```
-→ Switches to your SMART model
-
-```
-max mode
-```
-→ Switches to your MAX model
-
-### Check Current Mode
-
-```
-/modes status
-```
-→ Shows current mode + active model
-
-### Reconfigure
-
-```
-/modes setup
-```
-→ Run setup again to change your model preferences
-
----
-
-## Configuration File
-
-Located at: `~/.openclaw/workspace/switch-modes.json`
-
-Example:
+2. Create/update `~/.openclaw/workspace/switch-modes.json` with the structure:
 ```json
 {
-  "eco": "anthropic/claude-3.5-haiku",
-  "balanced": "anthropic/claude-sonnet-4-5",
-  "smart": "anthropic/claude-opus-4-5",
-  "max": "openai/o1-pro"
+  "eco": "model-id",
+  "balanced": "model-id",
+  "smart": "model-id",
+  "max": "model-id"
 }
 ```
 
-You can edit this file directly if you prefer.
+3. Confirm setup completion to the user.
 
----
+### 3. Handle Status Command (`/modes status`)
 
-## Use Cases
+1. Read the OpenClaw config at `~/.openclaw/openclaw.json` to get current model
+2. Read `~/.openclaw/workspace/switch-modes.json` to get mode mappings
+3. Determine which mode is currently active by matching the current model
+4. Display: `✅ Currently in [MODE] mode using [MODEL_ID]`
 
-### 💰 Cost Optimization
-- Use ECO for quick questions, summaries, simple tasks
-- Use BALANCED for daily work
-- Use SMART only when you need deep reasoning
-- Use MAX for critical, complex problems
+### 4. Handle Mode Switch Commands
 
-**Real savings:** Users report 60-80% cost reduction by using appropriate models.
+When user requests a mode switch:
 
-### 🎯 Task-Based Switching
-- Code review? → SMART mode
-- Writing email? → ECO mode
-- Architecture design? → MAX mode
-- General chat? → BALANCED mode
+1. **Read configuration**:
+   ```bash
+   cat ~/.openclaw/workspace/switch-modes.json
+   ```
+   If file doesn't exist, prompt user to run `/modes setup` first.
 
-### 🧪 Model Testing
-- Quickly compare outputs from different models
-- Test which model works best for your use case
-- Switch mid-conversation to see differences
+2. **Get the target model** from the config based on requested mode (eco/balanced/smart/max)
 
----
+3. **Update OpenClaw config**:
+   - Read current config: `~/.openclaw/openclaw.json`
+   - Update the `model` field with the new model ID
+   - Write back to `~/.openclaw/openclaw.json`
 
-## Supported Models
+4. **Confirm to user**:
+   ```
+   ✅ [MODE] mode activated
+   Now using: [MODEL_ID]
+   ```
 
-### Anthropic
-- `anthropic/claude-3.5-haiku` (fastest, cheapest)
-- `anthropic/claude-sonnet-4-5` (balanced)
-- `anthropic/claude-opus-4-5` (powerful)
-- `anthropic/claude-opus-4-6` (most powerful)
+## Examples
 
-### OpenAI
-- `openai/gpt-4o-mini` (cheap)
-- `openai/gpt-4o` (balanced)
-- `openai/o1` (reasoning)
-- `openai/o1-pro` (max reasoning)
-
-Use any model ID supported by your OpenClaw installation.
-
----
-
-## Commands Reference
-
-| Command | Action |
-|---------|--------|
-| `/modes setup` | Initial configuration or reconfigure |
-| `/modes status` | Show current mode and model |
-| `eco mode` | Switch to ECO mode |
-| `balanced mode` | Switch to BALANCED mode |
-| `smart mode` | Switch to SMART mode |
-| `max mode` | Switch to MAX mode |
-
----
-
-## Technical Details
-
-**How it works:**
-- Detects mode commands in your messages
-- Uses OpenClaw's `session_status` tool with `model` parameter
-- No gateway restart needed - instant switching
-- Per-session override (doesn't affect other sessions)
-
-**Privacy:**
-- All configuration stored locally
-- No data sent externally
-- Standard OpenClaw security model
-
----
-
-## Troubleshooting
-
-**"Model not found" error:**
-- Make sure the model ID is correct
-- Check your API keys are configured in OpenClaw
-- Some models require specific API plans
-
-**Mode not switching:**
-- Run `/modes status` to verify current mode
-- Check `workspace/switch-modes.json` exists and is valid JSON
-- Try running `/modes setup` again
-
-**Cost not decreasing:**
-- Verify you're actually using ECO mode for simple tasks
-- Check your model IDs - make sure ECO points to a cheaper model
-- Review your usage patterns
-
----
-
-## FAQ
-
-**Q: Does this work with all OpenClaw installations?**  
-A: Yes, as long as you have the models configured in your OpenClaw setup.
-
-**Q: Can I add more than 4 modes?**  
-A: Currently limited to 4 modes (eco/balanced/smart/max), but you can edit them to be whatever you want.
-
-**Q: Will this break my existing setup?**  
-A: No, it only changes models when you explicitly use mode commands.
-
-**Q: Can I use this with custom/local models?**  
-A: Yes! Any model ID that OpenClaw supports will work.
-
----
-
-## Contributing
-
-Found a bug? Have a feature request?  
-Open an issue or PR on [GitHub](#).
-
----
-
-## Agent Integration
-
-To enable conversational installation and full Switch Modes functionality, add this to your `~/.openclaw/workspace/AGENTS.md`:
-
-```markdown
-## Switch Modes Skill
-
-I have the Switch Modes skill installed. I can switch between cost-optimized models dynamically.
-
-**Commands I understand:**
-- `eco mode` / `balanced mode` / `smart mode` / `max mode`
-- `/modes status` - Show current mode
-- `/modes setup` - Configure modes
-
-**How it works:**
-1. I detect mode commands in messages
-2. I read `switch-modes.json` from workspace
-3. I call `session_status` with the model parameter
-4. I confirm the switch
-
-**Detection:** I automatically detect mode keywords - no special syntax needed.
+### Example 1: Mode Switch
+```
+User: eco mode
+Agent: [reads switch-modes.json, gets model for "eco"]
+Agent: [updates openclaw.json with new model]
+Agent: ✅ ECO mode activated
+      Now using: anthropic/claude-3.5-haiku
 ```
 
----
+### Example 2: Status Check
+```
+User: /modes status
+Agent: [reads openclaw.json for current model]
+Agent: [reads switch-modes.json for mode mappings]
+Agent: ✅ Currently in BALANCED mode using anthropic/claude-sonnet-4-5
+```
 
-## License
+### Example 3: First Time Setup
+```
+User: /modes setup
+Agent: [uses AskUserQuestion for each mode]
+Agent: [creates ~/.openclaw/workspace/switch-modes.json]
+Agent: ✅ Setup complete! You can now use:
+      - eco mode
+      - balanced mode
+      - smart mode
+      - max mode
+```
 
-MIT - Free to use, modify, and distribute.
+## File Locations
 
----
+- **Configuration**: `~/.openclaw/workspace/switch-modes.json`
+- **OpenClaw Config**: `~/.openclaw/openclaw.json`
+- **Example Config**: See `example-config.json` in skill directory
 
-## Credits
+## Common Edge Cases
 
-Created by [Sergio Ruiz (Serudda)](https://uiguideline.com)  
-Part of the OpenClaw skills ecosystem.
+1. **Config file missing**: Prompt user to run `/modes setup`
+2. **Invalid model ID**: Show error and ask user to reconfigure that mode
+3. **Model not available**: Suggest checking API keys and model access in OpenClaw
+4. **Ambiguous input**: If just "eco" or "smart" without "mode", still treat as mode switch command
+5. **Case insensitive**: Accept "ECO MODE", "Eco Mode", "eco mode" all the same
 
----
+## Important Notes
 
-**Enjoying this skill? Share it and help others save on AI costs!** 🌑
+- Mode switching is instant - no restart required
+- Changes only affect the current session's default model
+- Preserve all other settings in `openclaw.json` when updating model
+- Always validate JSON before writing config files
+- Use absolute paths: `~/.openclaw/...` not relative paths
+
+## Reference
+
+For detailed troubleshooting, supported models list, and FAQ, see [references/REFERENCE.md](references/REFERENCE.md).
