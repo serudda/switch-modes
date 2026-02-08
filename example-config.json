@@ -1,0 +1,6 @@
+{
+  "eco": "anthropic/claude-3.5-haiku",
+  "balanced": "anthropic/claude-sonnet-4-5",
+  "smart": "anthropic/claude-opus-4-5",
+  "max": "anthropic/claude-opus-4-6"
+}

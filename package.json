@@ -1,0 +1,36 @@
+{
+  "name": "model-modes",
+  "version": "1.0.0",
+  "description": "Dynamically switch between AI models to optimize costs and performance in OpenClaw",
+  "keywords": [
+    "openclaw",
+    "ai",
+    "llm",
+    "cost-optimization",
+    "model-switching",
+    "anthropic",
+    "openai",
+    "claude",
+    "gpt"
+  ],
+  "author": {
+    "name": "Sergio Ruiz",
+    "email": "contact@serudda.com",
+    "url": "https://uiguideline.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serudda/openclaw-model-modes"
+  },
+  "homepage": "https://github.com/serudda/openclaw-model-modes#readme",
+  "bugs": {
+    "url": "https://github.com/serudda/openclaw-model-modes/issues"
+  },
+  "openclaw": {
+    "skillType": "utility",
+    "category": "productivity",
+    "tags": ["cost-optimization", "model-management"],
+    "minVersion": "2026.1.0"
+  }
+}
