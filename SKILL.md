@@ -192,7 +192,3 @@ Agent: 🎉 Setup complete! Use: eco mode, balanced mode, smart mode, max mode
 - Preserve all other settings in `openclaw.json` when updating model
 - Always validate JSON before writing config files
 - Use absolute paths: `~/.openclaw/...` not relative paths
-
-## Reference
-
-For detailed troubleshooting, supported models list, and FAQ, see ./REFERENCE.md
