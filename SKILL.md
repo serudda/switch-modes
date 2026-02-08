@@ -14,6 +14,7 @@ Dynamically switch between AI models to optimize costs and performance.
 ## When to Use This Skill
 
 Activate this skill when the user mentions:
+
 - Mode switching commands: `eco mode`, `balanced mode`, `smart mode`, `max mode`
 - Status check: `/modes status`
 - Configuration: `/modes setup`
@@ -34,6 +35,7 @@ Configuration is stored in `~/.openclaw/workspace/switch-modes.json`.
 ### 1. Detect Mode Commands
 
 When the user message contains any of these patterns:
+
 - `eco mode` or `eco` (standalone)
 - `balanced mode` or `balanced`
 - `smart mode` or `smart`
@@ -52,12 +54,13 @@ If the configuration file doesn't exist or user requests setup:
    - **MAX mode**: Recommend `anthropic/claude-opus-4-6` or `openai/o1-pro`
 
 2. Create/update `~/.openclaw/workspace/switch-modes.json` with the structure:
+
 ```json
 {
-  "eco": "model-id",
-  "balanced": "model-id",
-  "smart": "model-id",
-  "max": "model-id"
+	"eco": "model-id",
+	"balanced": "model-id",
+	"smart": "model-id",
+	"max": "model-id"
 }
 ```
 
@@ -75,9 +78,11 @@ If the configuration file doesn't exist or user requests setup:
 When user requests a mode switch:
 
 1. **Read configuration**:
+
    ```bash
    cat ~/.openclaw/workspace/switch-modes.json
    ```
+
    If file doesn't exist, prompt user to run `/modes setup` first.
 
 2. **Get the target model** from the config based on requested mode (eco/balanced/smart/max)
@@ -96,6 +101,7 @@ When user requests a mode switch:
 ## Examples
 
 ### Example 1: Mode Switch
+
 ```
 User: eco mode
 Agent: [reads switch-modes.json, gets model for "eco"]
@@ -105,6 +111,7 @@ Agent: ✅ ECO mode activated
 ```
 
 ### Example 2: Status Check
+
 ```
 User: /modes status
 Agent: [reads openclaw.json for current model]
@@ -113,6 +120,7 @@ Agent: ✅ Currently in BALANCED mode using anthropic/claude-sonnet-4-5
 ```
 
 ### Example 3: First Time Setup
+
 ```
 User: /modes setup
 Agent: [uses AskUserQuestion for each mode]
@@ -148,4 +156,4 @@ Agent: ✅ Setup complete! You can now use:
 
 ## Reference
 
-For detailed troubleshooting, supported models list, and FAQ, see [references/REFERENCE.md](references/REFERENCE.md).
+For detailed troubleshooting, supported models list, and FAQ, see [./REFERENCE.md](references/REFERENCE.md).
