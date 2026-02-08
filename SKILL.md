@@ -195,22 +195,4 @@ Agent: 🎉 Setup complete! Use: eco mode, balanced mode, smart mode, max mode
 
 ## Reference
 
-For detailed troubleshooting, supported models list, and FAQ, see [references/REFERENCE.md](references/REFERENCE.md).
-
-## Supported Models
-
-### Anthropic
-
-- `anthropic/claude-3.5-haiku` (fastest, cheapest)
-- `anthropic/claude-sonnet-4-5` (balanced)
-- `anthropic/claude-opus-4-5` (powerful)
-- `anthropic/claude-opus-4-6` (most powerful)
-
-### OpenAI
-
-- `openai/gpt-4o-mini` (cheap)
-- `openai/gpt-4o` (balanced)
-- `openai/o1` (reasoning)
-- `openai/o1-pro` (max reasoning)
-
-Any model ID supported by your OpenClaw installation will work.
+For detailed troubleshooting, supported models list, and FAQ, see ./REFERENCE.md
