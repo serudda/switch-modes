@@ -1,4 +1,4 @@
-# Model Modes - OpenClaw Skill
+# Switch Modes - OpenClaw Skill
 
 **Dynamically switch between AI models to optimize costs and performance.**
 
@@ -19,7 +19,7 @@ Tired of paying premium model prices for simple questions? This skill lets you d
 
 ### Via ClawdHub (Recommended)
 ```bash
-clawdhub install model-modes
+clawdhub install switch-modes
 ```
 
 ### Manual
@@ -229,12 +229,12 @@ Open an issue or PR on [GitHub](#).
 
 ## Agent Integration
 
-To enable conversational installation and full Model Modes functionality, add this to your `~/.openclaw/workspace/AGENTS.md`:
+To enable conversational installation and full Switch Modes functionality, add this to your `~/.openclaw/workspace/AGENTS.md`:
 
 ```markdown
-## Model Modes Skill
+## Switch Modes Skill
 
-I have the Model Modes skill installed. I can switch between cost-optimized models dynamically.
+I have the Switch Modes skill installed. I can switch between cost-optimized models dynamically.
 
 **Commands I understand:**
 - `eco mode` / `balanced mode` / `smart mode` / `max mode`

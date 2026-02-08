@@ -1,4 +1,4 @@
-# Model Modes for OpenClaw
+# Switch Modes for OpenClaw
 
 Switch between AI models instantly to save money. Use cheap models for simple tasks, powerful models for complex ones.
 
@@ -32,7 +32,7 @@ That's it.
 Tell your OpenClaw agent:
 
 ```
-install model-modes
+install switch-modes
 ```
 
 Done. Your agent will install it and help you set it up.
@@ -40,14 +40,14 @@ Done. Your agent will install it and help you set it up.
 ### Alternative: Command Line
 
 ```bash
-clawdhub install model-modes
+clawdhub install switch-modes
 ```
 
 ### Manual Install
 
 ```bash
-git clone https://github.com/serudda/openclaw-model-modes.git
-cp -r openclaw-model-modes ~/.openclaw/skills/model-modes
+git clone https://github.com/serudda/switch-modes.git
+cp -r switch-modes ~/.openclaw/skills/switch-modes
 ```
 
 Restart OpenClaw after installing.
@@ -128,4 +128,4 @@ MIT - Free to use and modify.
 
 By [Sergio Ruiz](https://uiguideline.com)
 
-Questions? [Open an issue](https://github.com/serudda/openclaw-model-modes/issues)
+Questions? [Open an issue](https://github.com/serudda/switch-modes/issues)
