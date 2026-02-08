@@ -1,135 +1,131 @@
-# 🎛️ Model Modes for OpenClaw
+# Model Modes for OpenClaw
 
-**Save 60-80% on AI costs by dynamically switching between models based on task complexity.**
+Switch between AI models instantly to save money. Use cheap models for simple tasks, powerful models for complex ones.
 
----
-
-## Why This Exists
-
-You don't need GPT-4 to answer "What's the weather?" and you don't want Claude Haiku designing your architecture.
-
-This skill lets you define 4 modes (eco/balanced/smart/max) and switch between them instantly with simple commands.
+**Save 60-80% on your AI API costs.**
 
 ---
 
-## Installation (Choose One)
+## What This Does
 
-### 🎤 Conversational (Easiest)
+You have 4 modes:
 
-Just ask your OpenClaw agent:
+- **eco** → cheapest model (summaries, quick questions)
+- **balanced** → daily model (general work)
+- **smart** → powerful model (complex stuff)
+- **max** → most powerful (critical tasks)
+
+Switch by just saying the mode name:
+
+```
+eco mode
+```
+
+That's it.
+
+---
+
+## Installation
+
+### Easiest Way
+
+Tell your OpenClaw agent:
 
 ```
 install model-modes
 ```
 
-That's it! Your agent will install it and guide you through setup.
+Done. Your agent will install it and help you set it up.
 
----
-
-### 💻 Command Line
+### Alternative: Command Line
 
 ```bash
 clawdhub install model-modes
 ```
 
----
-
-### 🔧 Manual (GitHub)
+### Manual Install
 
 ```bash
 git clone https://github.com/serudda/openclaw-model-modes.git
 cp -r openclaw-model-modes ~/.openclaw/skills/model-modes
 ```
 
-See [INSTALL.md](./INSTALL.md) for detailed manual installation.
+Restart OpenClaw after installing.
 
 ---
 
-## Quick Start
+## Setup
 
-### Setup (Conversational)
+After installing, tell your agent:
+
 ```
 /modes setup
 ```
 
-Your agent will ask you 4 questions to configure your modes. All conversational - no file editing needed.
+Answer 4 simple questions about which models you want for each mode. That's it.
 
-### Use
+---
+
+## Usage
+
+Switch modes anytime:
+
 ```
-eco mode          # Switch to cheapest model
-balanced mode     # Switch to daily driver
-smart mode        # Switch to powerful model
-max mode          # Switch to maximum power
+eco mode
+balanced mode
+smart mode
+max mode
+```
+
+Check what mode you're using:
+
+```
+/modes status
 ```
 
 ---
 
-## Example Workflow
+## Example
 
 ```
-User: eco mode
+You: eco mode
+Agent: ✅ ECO mode activated
 
-User: Summarize this article for me
-[AI responds using cheap model - perfect for summaries]
+You: Summarize this article for me
+[uses cheap model]
 
-User: smart mode
+You: smart mode
+Agent: ✅ SMART mode activated
 
-User: Now design a scalable architecture for this system
-[AI responds using powerful model - needed for complex reasoning]
+You: Design a system architecture for this
+[uses powerful model]
 ```
 
-**Result:** You paid cheap model prices for the summary, premium model prices only for architecture design.
-
----
-
-## Features
-
-✅ **4 customizable modes** - Define any model for eco/balanced/smart/max  
-✅ **Instant switching** - No restart needed  
-✅ **Conversational setup** - No file editing, all done through chat  
-✅ **Cost tracking** - See current mode anytime with `/modes status`  
-✅ **Model agnostic** - Works with Anthropic, OpenAI, or any provider OpenClaw supports  
-✅ **Privacy focused** - All config stored locally  
-
----
-
-## Use Cases
-
-💰 **Optimize costs** - Use cheap models for simple tasks  
-🎯 **Task-based switching** - Right model for the job  
-🧪 **Model testing** - Compare outputs quickly  
-📊 **Budget control** - Stay within API limits  
-
----
-
-## Documentation
-
-Full docs: [SKILL.md](./SKILL.md)
+You just saved money by using the right model for each task.
 
 ---
 
 ## Requirements
 
 - OpenClaw installed
-- At least 2 different models configured (e.g., Claude Sonnet + Haiku)
+- At least 2 different AI models configured
 
 ---
 
-## Author
+## Documentation
 
-Created by **Sergio Ruiz (Serudda)**  
-Design Systems expert | Content creator | Building in public
-
-- 🌐 [UIGuideline.com](https://uiguideline.com)
-- 🐦 [@serudda](https://twitter.com/serudda)
-- 💼 [LinkedIn](https://linkedin.com/in/serudda)
+Full documentation: [SKILL.md](SKILL.md)
 
 ---
 
 ## License
 
-MIT - Free to use, modify, and share.
+MIT - Free to use and modify.
 
 ---
 
-**Star ⭐ this repo if you find it useful!**
+## Author
+
+By [Sergio Ruiz](https://uiguideline.com)
+
+Questions? [Open an issue](https://github.com/serudda/openclaw-model-modes/issues)

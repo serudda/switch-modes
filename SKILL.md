@@ -227,6 +227,31 @@ Open an issue or PR on [GitHub](#).
 
 ---
 
+## Agent Integration
+
+To enable conversational installation and full Model Modes functionality, add this to your `~/.openclaw/workspace/AGENTS.md`:
+
+```markdown
+## Model Modes Skill
+
+I have the Model Modes skill installed. I can switch between cost-optimized models dynamically.
+
+**Commands I understand:**
+- `eco mode` / `balanced mode` / `smart mode` / `max mode`
+- `/modes status` - Show current mode
+- `/modes setup` - Configure modes
+
+**How it works:**
+1. I detect mode commands in messages
+2. I read `model-modes.json` from workspace
+3. I call `session_status` with the model parameter
+4. I confirm the switch
+
+**Detection:** I automatically detect mode keywords - no special syntax needed.
+```
+
+---
+
 ## License
 
 MIT - Free to use, modify, and distribute.
