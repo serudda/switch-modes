@@ -1,5 +1,7 @@
 # Switch Modes for OpenClaw
 
+https://github.com/user-attachments/assets/5afbc416-f2e1-42a2-877d-008ee63f9b1c
+
 Switch between AI models instantly to save money. Use cheap models for simple tasks, powerful models for complex ones.
 
 **Save 60-80% on your AI API costs.**
