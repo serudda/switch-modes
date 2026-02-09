@@ -139,7 +139,7 @@ All modes:
 🟢 eco → <model-id>
 🔵 balanced → <model-id> ← active
 🟠 smart → <model-id>
-🔴 max → claude-opus-4-6
+🔴 max → <model-id>
 ```
 
 ### Example 3: First Time Setup
