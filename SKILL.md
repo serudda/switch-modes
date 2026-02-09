@@ -1,10 +1,6 @@
 ---
 name: switch-modes
 description: Switch between AI models dynamically to optimize costs and performance. Use when the user says mode commands like "eco mode", "balanced mode", "smart mode", or "max mode", or when they want to check their current mode with "/modes status" or configure modes with "/modes setup".
-license: MIT
-metadata:
-  author: serudda
-  version: "1.0.0"
 ---
 
 # Switch Modes
@@ -50,10 +46,10 @@ When the user message contains any of these patterns:
 If the configuration file doesn't exist or user requests setup:
 
 1. Ask the user for their preferred model for each mode:
-   - ECO mode: Recommend `anthropic/claude-3.5-haiku`
+   - ECO mode: Recommend `anthropic/claude-haiku-4-5`
    - BALANCED mode: Recommend `anthropic/claude-sonnet-4-5`
    - SMART mode: Recommend `anthropic/claude-opus-4-5`
-   - MAX mode: Recommend `anthropic/claude-opus-4-6` or `openai/o1-pro`
+   - MAX mode: Recommend `anthropic/claude-opus-4-6` or `openai/gpt-5.2`
 
 2. Create/update `~/.openclaw/workspace/switch-modes.json` with the structure:
 
@@ -78,12 +74,12 @@ If the configuration file doesn't exist or user requests setup:
 ```
 🎛️ Switch Modes - Status
 
-Current mode: 🟢 ECO (anthropic/claude-3.5-haiku)
+Current mode: 🟢 ECO (<model-id>)
 
 All modes:
-🟢 eco → claude-3.5-haiku ← active
-🔵 balanced → claude-sonnet-4-5
-🟠 smart → claude-opus-4-5
+🟢 eco → <model-id> ← active
+🔵 balanced → <model-id>
+🟠 smart → <model-id>
 🔴 max → claude-opus-4-6
 ```
 
@@ -112,7 +108,7 @@ This changes the primary model in `openclaw.json` and triggers a gateway restart
 4. Confirm to user:
 
 ```
-✅ ECO mode activated (claude-3.5-haiku)
+✅ ECO mode activated (<model-id>)
 ```
 
 ## Examples
@@ -124,7 +120,7 @@ User: eco mode
 
 Agent: [reads switch-modes.json, gets model for "eco"]
 Agent: [calls gateway config.patch to change primary model]
-Agent: ✅ ECO mode activated (anthropic/claude-3.5-haiku)
+Agent: ✅ ECO mode activated (<model-id>)
 ```
 
 ### Example 2: Status Check
@@ -137,12 +133,12 @@ Agent: [reads switch-modes.json for mode mappings]
 Agent:
 🎛️ Switch Modes - Status
 
-Current mode: 🔵 BALANCED (anthropic/claude-sonnet-4-5)
+Current mode: 🔵 BALANCED (<model-id>)
 
 All modes:
-🟢 eco → claude-3.5-haiku
-🔵 balanced → claude-sonnet-4-5 ← active
-🟠 smart → claude-opus-4-5
+🟢 eco → <model-id>
+🔵 balanced → <model-id> ← active
+🟠 smart → <model-id>
 🔴 max → claude-opus-4-6
 ```
 
@@ -154,15 +150,15 @@ User: /modes setup
 Agent: Let's configure your modes! 🎛️
 
 🟢 ECO MODE (simple tasks)
-Recommended: anthropic/claude-3.5-haiku
+Recommended: <model-id>
 What model for ECO?
 
-User: anthropic/claude-3.5-haiku
+User: <model-id>
 
-Agent: ✅ ECO: anthropic/claude-3.5-haiku
+Agent: ✅ ECO: <model-id>
 
 🔵 BALANCED MODE (daily driver)
-Recommended: anthropic/claude-sonnet-4-5
+Recommended: <model-id>
 What model for BALANCED?
 
 [continues for smart and max...]
