@@ -34,7 +34,7 @@ That's it.
 Tell your OpenClaw agent:
 
 ```
-install switch-modes
+install switch-modes from clawhub
 ```
 
 Done. Your agent will install it and help you set it up.
@@ -42,7 +42,7 @@ Done. Your agent will install it and help you set it up.
 ### Alternative: Command Line
 
 ```bash
-clawdhub install switch-modes
+npx clawhub@latest install switch-modes
 ```
 
 ### Manual Install
